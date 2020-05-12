@@ -6,8 +6,6 @@ class Tab {
             that = this;
             // 獲取元素
             this.main = document.querySelector(id);
-            this.lis = this.main.querySelectorAll('li');
-            this.sections = this.main.querySelectorAll('section');
             this.add = this.main.querySelector('.tab-add');
             // li 的父元素
             this.ul = this.main.querySelector('.nav ul:first-child');
@@ -17,12 +15,18 @@ class Tab {
         }
         // 頁面加載完就先進行初始化綁定事件
     init() {
+            this.updateNode();
             // init 初始化操作讓相關的元素綁定事件
-            this.add.onclick = this.addTab;
+            this.add.addEventListener('click', this.addTab);
             this.lis.forEach((li, i) => {
                 this.lis[i].i = i;
-                this.lis[i].onclick = this.toggleTab;
+                this.lis[i].addEventListener('click', this.toggleTab);
             })
+        }
+        // 獲取所有小 li 與 section
+    updateNode() {
+            this.lis = this.main.querySelectorAll('li');
+            this.sections = this.main.querySelectorAll('section');
         }
         // 1. 切換功能
     toggleTab() {
@@ -57,6 +61,7 @@ class Tab {
             // this.ul.insertAdjacentHTML('beforeend', li);
             that.ul.insertAdjacentHTML('beforeend', li);
             that.fsection.insertAdjacentHTML('beforeend', section);
+            that.init();
         }
         // 3. 刪除功能
     removeTab() {}
