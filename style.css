@@ -24,7 +24,7 @@ main h1 {
   width: 900px;
   margin: 0 auto;
   height: 400px;
-  border: 1px solid lightsalmon;
+  border: 1px solid #ccc;
   position: relative;
 }
 
@@ -110,7 +110,7 @@ nav ul li span:last-child {
   display: block;
 }
 
-.icon-guanbi:before {
+.icon-remove:before {
   content: "x";
 }
 /*# sourceMappingURL=style.css.map */
