@@ -22,13 +22,16 @@ class Tab {
                 this.lis[i].i = i;
                 this.lis[i].addEventListener('click', this.toggleTab);
                 this.remove[i].addEventListener('click', this.removeTab);
+                this.spans[i].addEventListener('dblclick', this.editTab);
+                this.sections[i].addEventListener('dblclick', this.editTab);
             })
         }
         // 需要重新獲取動態添加的元素
     updateNode() {
             this.lis = this.main.querySelectorAll('li');
             this.sections = this.main.querySelectorAll('section');
-            this.remove = this.main.querySelectorAll('.icon-remove')
+            this.remove = this.main.querySelectorAll('.icon-remove');
+            this.spans = this.main.querySelectorAll('.nav li span:first-child');
         }
         // 1. 切換功能
     toggleTab() {
@@ -84,7 +87,30 @@ class Tab {
             that.lis[index] && that.lis[index].click();
         }
         // 4. 修改功能
-    editTab() {}
+    editTab() {
+        // 先獲取原先文字內容
+        const str = this.innerHTML;
+        // 禁止雙擊選中文字
+        window.getSelection ? window.getSelection().removeAllRanges() : document.selection.empty();
+        // 替換成文本框，並把原先內容賦值給它
+        this.innerHTML = `<input type="text" value="${str}"/>`;
+        // 文本框為 li 的第一個子元素
+        const input = this.children[0];
+        // 雙擊，文本框裡的文字自動處於選中狀態
+        input.select();
+        // 文本框沒 focus 時，把裡面的值給父層 span
+        input.addEventListener('blur', function() {
+                this.parentNode.innerHTML = this.value;
+            })
+            // 放開 enter 鍵時把文本框裡的值給父層的 span
+        input.addEventListener('keyup', function(e) {
+            if (e.keyCode === 13) {
+                // this.parentNode.innerHTML = this.value;
+                // 手動調用表單失去焦點事件
+                this.blur();
+            }
+        })
+    }
 }
 
 new Tab('#tab');
