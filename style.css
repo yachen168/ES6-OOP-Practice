@@ -85,6 +85,7 @@ nav ul li span:last-child {
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
+  cursor: pointer;
 }
 
 .tabs-content {
@@ -112,5 +113,6 @@ nav ul li span:last-child {
 
 .icon-remove:before {
   content: "x";
+  cursor: pointer;
 }
 /*# sourceMappingURL=style.css.map */
